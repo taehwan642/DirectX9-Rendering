@@ -1,6 +1,5 @@
 #include <iostream>
 #include <Windows.h>
-#include <d3d9.h>
 #include "Code/Draw.h"
 
 HWND MainWindowHandle = 0;
