@@ -25,11 +25,11 @@ namespace DrawTexture
 
 		// 정점 버퍼 생성
 		if (FAILED(device->CreateVertexBuffer(
-			4 * sizeof(CUSTOMVERTEX),
-			0,
-			D3DFVF_CUSTOMVERTEX,
-			D3DPOOL_DEFAULT,
-			&vb,
+			4 * sizeof(CUSTOMVERTEX), // 정점 버퍼 크기
+			0, // 사용법
+			D3DFVF_CUSTOMVERTEX, // 정점 포맷
+			D3DPOOL_DEFAULT, // 메모리 클래스
+			&vb, // 정점 버퍼 리소스 예약
 			nullptr)))
 		{
 			return E_FAIL;

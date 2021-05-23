@@ -6,6 +6,8 @@ HWND MainWindowHandle = 0;
 LPDIRECT3D9 g_pD3D{ nullptr };
 LPDIRECT3DDEVICE9 g_pD3Ddev{ nullptr };
 
+#define CurrentNamespace DrawTextureAlpha
+
 HRESULT InitD3D(HWND hWnd)
 {
 	g_pD3D = Direct3DCreate9(D3D_SDK_VERSION); // Direct3D 사용
@@ -32,7 +34,7 @@ HRESULT InitD3D(HWND hWnd)
 		&g_pD3Ddev)))  // 생성될 디바이스
 		return E_FAIL;
 
-	if (FAILED(DrawTexture::Initialize(g_pD3Ddev)))
+	if (FAILED(CurrentNamespace::Initialize(g_pD3Ddev)))
 		return E_FAIL;
 
 	return S_OK;
@@ -41,12 +43,12 @@ HRESULT InitD3D(HWND hWnd)
 void Render(void)
 {
 	// 배경을 검게 칠한다
-	g_pD3Ddev->Clear(0, NULL, D3DCLEAR_TARGET, D3DCOLOR_XRGB(100, 100, 100), 1.0f, 0);
+	g_pD3Ddev->Clear(0, NULL, D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER, D3DCOLOR_ARGB(0, 45, 50, 170), 1.0f, 0);
 
 	g_pD3Ddev->BeginScene(); // 렌더링 시작
 
 	// 함수 추가
-	DrawTexture::Update(g_pD3Ddev);
+	CurrentNamespace::Update(g_pD3Ddev);
 
 	g_pD3Ddev->EndScene(); // 렌더링 종료
 
@@ -55,7 +57,7 @@ void Render(void)
 
 void CleanUp(void)
 {
-	DrawTexture::Close(g_pD3Ddev);
+	CurrentNamespace::Close(g_pD3Ddev);
 	SAFE_RELEASE(g_pD3Ddev);
 	SAFE_RELEASE(g_pD3D);
 }

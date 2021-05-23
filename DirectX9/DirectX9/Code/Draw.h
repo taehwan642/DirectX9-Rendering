@@ -19,4 +19,18 @@ namespace DrawTexture
 	void Close(LPDIRECT3DDEVICE9 device);
 }
 
+namespace DrawTextureWithStage
+{
+	HRESULT Initialize(LPDIRECT3DDEVICE9 device);
+	void Update(LPDIRECT3DDEVICE9 device);
+	void Close(LPDIRECT3DDEVICE9 device);
+}
+
+namespace DrawTextureAlpha
+{
+	HRESULT Initialize(LPDIRECT3DDEVICE9 device);
+	void Update(LPDIRECT3DDEVICE9 device);
+	void Close(LPDIRECT3DDEVICE9 device);
+}
+
 #endif __draw_h__

@@ -149,6 +149,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Code\DrawTexture.cpp" />
+    <ClCompile Include="Code\DrawTextureAlpha.cpp" />
+    <ClCompile Include="Code\DrawTextureWithStage.cpp" />
     <ClCompile Include="Code\DrawTriangle.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
