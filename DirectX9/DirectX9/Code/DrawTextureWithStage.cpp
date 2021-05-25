@@ -62,7 +62,7 @@ namespace DrawTextureWithStage
 		device->SetRenderState(D3DRS_AMBIENT, 0x000F0F0F);
 
 		// MODULATE
-		// COLORARG1 + COLORARG2의 색을 합친 색을 출력.
+		// COLORARG1 * COLORARG2의 색을 합친 색을 출력.
 		device->SetTextureStageState(0, D3DTSS_COLOROP, D3DTOP_MODULATE);
 		// COLORARG1의 색은 Texture의 색으로 직접 설정했고,
 		device->SetTextureStageState(0, D3DTSS_COLORARG1, D3DTA_TEXTURE);

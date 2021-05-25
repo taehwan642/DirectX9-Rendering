@@ -33,3 +33,5 @@ memcpy를 사용해 정적 버퍼에 값을 쓸 때는 Lock, Unlock을 사용한
 알파 합성 사용 여부를 SetRenderState로 세팅한 다음,
 어떤 합성을 할지 결정하지 않으면 안된다.
 
+Device->SetRenderState(D3DRS_BLENDOP, 값)으로 합성법을 세팅할 수 있는데
+디폴트 세팅은 D3DBLENDOP_ADD이다.

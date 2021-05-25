@@ -93,7 +93,7 @@ LRESULT CALLBACK WndProc(HWND windowHandle,
 	switch (msg)
 	{
 	case WM_LBUTTONDOWN:
-		::MessageBox(0, "HELLO SIBAL!!", "SIBAL", MB_OK);
+		::MessageBox(0, "HELLO!!", "asdf", MB_OK);
 		return 0;
 	case WM_KEYDOWN:
 		if (wParam == VK_ESCAPE)
@@ -123,12 +123,12 @@ bool InitWindowsApp(HINSTANCE instanceHandle, int show)
 	wc.hCursor = ::LoadCursor(0, IDC_ARROW); // 커서 핸들
 	wc.hbrBackground = static_cast<HBRUSH>(::GetStockObject(WHITE_BRUSH)); // 배경 브러시 핸들
 	wc.lpszMenuName = 0; // 메뉴 이름
-	wc.lpszClassName = "SIBAL"; // 윈도우 클래스 이름
+	wc.lpszClassName = "asdf1"; // 윈도우 클래스 이름
 
 	::RegisterClass(&wc);
 
 	MainWindowHandle = ::CreateWindow(
-		"SIBAL", // 클래스명
+		"asdf123", // 클래스명
 		"dd", // 윈도우 이름
 		WS_OVERLAPPEDWINDOW, // 윈도우 스타일
 		CW_USEDEFAULT, // 윈도우의 최초 출력 x 좌표
