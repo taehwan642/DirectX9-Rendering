@@ -123,13 +123,13 @@ bool InitWindowsApp(HINSTANCE instanceHandle, int show)
 	wc.hCursor = ::LoadCursor(0, IDC_ARROW); // 커서 핸들
 	wc.hbrBackground = static_cast<HBRUSH>(::GetStockObject(WHITE_BRUSH)); // 배경 브러시 핸들
 	wc.lpszMenuName = 0; // 메뉴 이름
-	wc.lpszClassName = "asdf1"; // 윈도우 클래스 이름
+	wc.lpszClassName = "Hello"; // 윈도우 클래스 이름
 
 	::RegisterClass(&wc);
 
 	MainWindowHandle = ::CreateWindow(
-		"asdf123", // 클래스명
-		"dd", // 윈도우 이름
+		"Hello", // 클래스명
+		"Hello", // 윈도우 이름
 		WS_OVERLAPPEDWINDOW, // 윈도우 스타일
 		CW_USEDEFAULT, // 윈도우의 최초 출력 x 좌표
 		CW_USEDEFAULT, // 윈도우의 최초 출력 y 좌표
