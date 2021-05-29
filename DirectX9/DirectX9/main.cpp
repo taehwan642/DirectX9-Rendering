@@ -6,7 +6,7 @@ HWND MainWindowHandle = 0;
 LPDIRECT3D9 g_pD3D{ nullptr };
 LPDIRECT3DDEVICE9 g_pD3Ddev{ nullptr };
 
-#define CurrentNamespace DrawTextureAlpha
+#define CurrentNamespace StencilBufferMirror
 
 HRESULT InitD3D(HWND hWnd)
 {
@@ -24,6 +24,19 @@ HRESULT InitD3D(HWND hWnd)
 	d3dpp.Windowed = TRUE; // 윈도우 모드
 	d3dpp.SwapEffect = D3DSWAPEFFECT_DISCARD; // 화면 전환 방법
 	d3dpp.BackBufferFormat = d3ddm.Format; // 화면 포맷을 현재의 화면과 같게
+	d3dpp.BackBufferWidth = 640;
+	d3dpp.BackBufferHeight = 480;
+	d3dpp.BackBufferFormat = D3DFMT_A8R8G8B8;
+	d3dpp.BackBufferCount = 1;
+	d3dpp.MultiSampleType = D3DMULTISAMPLE_NONE;
+	d3dpp.MultiSampleQuality = 0;
+	d3dpp.hDeviceWindow = MainWindowHandle;
+	d3dpp.AutoDepthStencilFormat = D3DFMT_D16;
+	d3dpp.Flags = 0;
+	d3dpp.FullScreen_RefreshRateInHz = D3DPRESENT_RATE_DEFAULT;
+	d3dpp.PresentationInterval = D3DPRESENT_INTERVAL_IMMEDIATE;
+	
+
 
 	if (FAILED(g_pD3D->CreateDevice(
 		D3DADAPTER_DEFAULT, // 여러 개의 비디오 카드가 있을 때, 선택하기 위한 용도
@@ -43,7 +56,9 @@ HRESULT InitD3D(HWND hWnd)
 void Render(void)
 {
 	// 배경을 검게 칠한다
-	g_pD3Ddev->Clear(0, NULL, D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER, D3DCOLOR_ARGB(0, 45, 50, 170), 1.0f, 0);
+	g_pD3Ddev->Clear(0, 0,
+		D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER | D3DCLEAR_STENCIL,
+		0xff000000, 1.0f, 0L);
 
 	g_pD3Ddev->BeginScene(); // 렌더링 시작
 
@@ -133,8 +148,8 @@ bool InitWindowsApp(HINSTANCE instanceHandle, int show)
 		WS_OVERLAPPEDWINDOW, // 윈도우 스타일
 		CW_USEDEFAULT, // 윈도우의 최초 출력 x 좌표
 		CW_USEDEFAULT, // 윈도우의 최초 출력 y 좌표
-		CW_USEDEFAULT, // 윈도우의 폭
-		CW_USEDEFAULT, // 윈도우의 높이
+		640, // 윈도우의 폭
+		480, // 윈도우의 높이
 		0, // 부모 윈도우 핸들
 		0, // 메뉴 핸들, 혹은 자식 위도우 ID
 		instanceHandle, // 인스턴스 핸들

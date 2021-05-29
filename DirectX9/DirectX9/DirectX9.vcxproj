@@ -148,10 +148,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Code\DrawTexture.cpp" />
-    <ClCompile Include="Code\DrawTextureAlpha.cpp" />
-    <ClCompile Include="Code\DrawTextureWithStage.cpp" />
-    <ClCompile Include="Code\DrawTriangle.cpp" />
+    <ClCompile Include="Code\2.DrawTexture.cpp" />
+    <ClCompile Include="Code\4.DrawTextureAlpha.cpp" />
+    <ClCompile Include="Code\3.DrawTextureWithStage.cpp" />
+    <ClCompile Include="Code\1.DrawTriangle.cpp" />
+    <ClCompile Include="Code\5.StencilBufferMirror.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
