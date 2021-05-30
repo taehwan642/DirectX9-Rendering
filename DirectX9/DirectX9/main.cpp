@@ -1,180 +1,171 @@
-#include <iostream>
-#include <Windows.h>
-#include "Code/Draw.h"
+#include <d3d9.h>
+#pragma warning( disable : 4996 ) // disable deprecated warning 
+#include <strsafe.h>
+#pragma warning( default : 4996 )
 
-HWND MainWindowHandle = 0;
-LPDIRECT3D9 g_pD3D{ nullptr };
-LPDIRECT3DDEVICE9 g_pD3Ddev{ nullptr };
 
-#define CurrentNamespace StencilBufferMirror
 
+
+//-----------------------------------------------------------------------------
+// Global variables
+//-----------------------------------------------------------------------------
+LPDIRECT3D9         g_pD3D = NULL; // Used to create the D3DDevice
+LPDIRECT3DDEVICE9   g_pd3dDevice = NULL; // Our rendering device
+
+
+
+
+//-----------------------------------------------------------------------------
+// Name: InitD3D()
+// Desc: Initializes Direct3D
+//-----------------------------------------------------------------------------
 HRESULT InitD3D(HWND hWnd)
 {
-	g_pD3D = Direct3DCreate9(D3D_SDK_VERSION); // Direct3D 사용
-	if (g_pD3D == nullptr)
-		return E_FAIL;
+    // Create the D3D object, which is needed to create the D3DDevice.
+    if (NULL == (g_pD3D = Direct3DCreate9(D3D_SDK_VERSION)))
+        return E_FAIL;
 
-	D3DDISPLAYMODE d3ddm;
-	if (FAILED(g_pD3D->GetAdapterDisplayMode(D3DADAPTER_DEFAULT, &d3ddm))) // 디스플레이 모드 조사
-		return E_FAIL;
+    // Set up the structure used to create the D3DDevice. Most parameters are
+    // zeroed out. We set Windowed to TRUE, since we want to do D3D in a
+    // window, and then set the SwapEffect to "discard", which is the most
+    // efficient method of presenting the back buffer to the display.  And 
+    // we request a back buffer format that matches the current desktop display 
+    // format.
+    D3DPRESENT_PARAMETERS d3dpp;
+    ZeroMemory(&d3dpp, sizeof(d3dpp));
+    d3dpp.Windowed = TRUE;
+    d3dpp.SwapEffect = D3DSWAPEFFECT_DISCARD;
+    d3dpp.BackBufferFormat = D3DFMT_UNKNOWN;
 
-	// 디바이스 생성
-	D3DPRESENT_PARAMETERS d3dpp;
-	ZeroMemory(&d3dpp, sizeof(D3DPRESENT_PARAMETERS));
-	d3dpp.Windowed = TRUE; // 윈도우 모드
-	d3dpp.SwapEffect = D3DSWAPEFFECT_DISCARD; // 화면 전환 방법
-	d3dpp.BackBufferFormat = d3ddm.Format; // 화면 포맷을 현재의 화면과 같게
-	d3dpp.BackBufferWidth = 640;
-	d3dpp.BackBufferHeight = 480;
-	d3dpp.BackBufferFormat = D3DFMT_A8R8G8B8;
-	d3dpp.BackBufferCount = 1;
-	d3dpp.MultiSampleType = D3DMULTISAMPLE_NONE;
-	d3dpp.MultiSampleQuality = 0;
-	d3dpp.hDeviceWindow = MainWindowHandle;
-	d3dpp.AutoDepthStencilFormat = D3DFMT_D16;
-	d3dpp.Flags = 0;
-	d3dpp.FullScreen_RefreshRateInHz = D3DPRESENT_RATE_DEFAULT;
-	d3dpp.PresentationInterval = D3DPRESENT_INTERVAL_IMMEDIATE;
-	
+    // Create the Direct3D device. Here we are using the default adapter (most
+    // systems only have one, unless they have multiple graphics hardware cards
+    // installed) and requesting the HAL (which is saying we want the hardware
+    // device rather than a software one). Software vertex processing is 
+    // specified since we know it will work on all cards. On cards that support 
+    // hardware vertex processing, though, we would see a big performance gain 
+    // by specifying hardware vertex processing.
+    if (FAILED(g_pD3D->CreateDevice(D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, hWnd,
+        D3DCREATE_SOFTWARE_VERTEXPROCESSING,
+        &d3dpp, &g_pd3dDevice)))
+    {
+        return E_FAIL;
+    }
 
+    // Device state would normally be set here
 
-	if (FAILED(g_pD3D->CreateDevice(
-		D3DADAPTER_DEFAULT, // 여러 개의 비디오 카드가 있을 때, 선택하기 위한 용도
-		D3DDEVTYPE_HAL, // 셰이딩을 하드웨어에서 할 것인가? (HAL = 사용/REF = 미사용)
-		hWnd, // 윈도우 핸들
-		D3DCREATE_SOFTWARE_VERTEXPROCESSING, // Direct3D의 전반적인 동작 제어 (HARDWARE = 사용/SOFTWARE = 미사용)
-		&d3dpp, // d3dpp
-		&g_pD3Ddev)))  // 생성될 디바이스
-		return E_FAIL;
-
-	if (FAILED(CurrentNamespace::Initialize(g_pD3Ddev)))
-		return E_FAIL;
-
-	return S_OK;
-}
-
-void Render(void)
-{
-	// 배경을 검게 칠한다
-	g_pD3Ddev->Clear(0, 0,
-		D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER | D3DCLEAR_STENCIL,
-		0xff000000, 1.0f, 0L);
-
-	g_pD3Ddev->BeginScene(); // 렌더링 시작
-
-	// 함수 추가
-	CurrentNamespace::Update(g_pD3Ddev);
-
-	g_pD3Ddev->EndScene(); // 렌더링 종료
-
-	g_pD3Ddev->Present(NULL, NULL, NULL, NULL); // 렌더링한것들을 실제 윈도우에 출력
-}
-
-void CleanUp(void)
-{
-	CurrentNamespace::Close(g_pD3Ddev);
-	SAFE_RELEASE(g_pD3Ddev);
-	SAFE_RELEASE(g_pD3D);
-}
-
-int Run()
-{
-	MSG msg;
-	::ZeroMemory(&msg, sizeof(MSG));
-	while (msg.message != WM_QUIT)
-	{
-		if (::PeekMessage(&msg, NULL, 0U, 0U, PM_REMOVE))
-		{
-			::TranslateMessage(&msg);
-			::DispatchMessage(&msg);
-		}
-		else
-		{
-			Render();
-		}
-	}
-	
-	CleanUp();
-	return msg.wParam;
-}
-
-LRESULT CALLBACK WndProc(HWND windowHandle,
-						 UINT msg,
-						 WPARAM wParam,
-						 LPARAM lParam)
-{
-	PAINTSTRUCT paint;
-	HDC hdc;
-	switch (msg)
-	{
-	case WM_LBUTTONDOWN:
-		::MessageBox(0, "HELLO!!", "asdf", MB_OK);
-		return 0;
-	case WM_KEYDOWN:
-		if (wParam == VK_ESCAPE)
-			::DestroyWindow(MainWindowHandle);
-		return 0;
-	case WM_PAINT:
-		hdc = BeginPaint(MainWindowHandle, &paint);
-		EndPaint(MainWindowHandle, &paint);
-		return 0;
-	case WM_DESTROY:
-		::PostQuitMessage(0);
-		return 0;
-	}
-
-	return ::DefWindowProc(windowHandle, msg, wParam, lParam);
-}
-
-bool InitWindowsApp(HINSTANCE instanceHandle, int show)
-{
-	WNDCLASS wc;
-	wc.style = CS_HREDRAW | CS_VREDRAW; // 윈도우 클래스 스타일
-	wc.lpfnWndProc = WndProc; // 윈도우 프로시져
-	wc.cbClsExtra = 0; // 확장용
-	wc.cbWndExtra = 0; // 확장용
-	wc.hInstance = instanceHandle; // 인스턴스 핸들
-	wc.hIcon = ::LoadIcon(0, IDI_APPLICATION); // 아이콘 핸들
-	wc.hCursor = ::LoadCursor(0, IDC_ARROW); // 커서 핸들
-	wc.hbrBackground = static_cast<HBRUSH>(::GetStockObject(WHITE_BRUSH)); // 배경 브러시 핸들
-	wc.lpszMenuName = 0; // 메뉴 이름
-	wc.lpszClassName = "Hello"; // 윈도우 클래스 이름
-
-	::RegisterClass(&wc);
-
-	MainWindowHandle = ::CreateWindow(
-		"Hello", // 클래스명
-		"Hello", // 윈도우 이름
-		WS_OVERLAPPEDWINDOW, // 윈도우 스타일
-		CW_USEDEFAULT, // 윈도우의 최초 출력 x 좌표
-		CW_USEDEFAULT, // 윈도우의 최초 출력 y 좌표
-		640, // 윈도우의 폭
-		480, // 윈도우의 높이
-		0, // 부모 윈도우 핸들
-		0, // 메뉴 핸들, 혹은 자식 위도우 ID
-		instanceHandle, // 인스턴스 핸들
-		0); // 윈도우 생성 데이터
-
-	if (FAILED(InitD3D(MainWindowHandle)))
-		return false;
-
-	::ShowWindow(MainWindowHandle, show);
-	::UpdateWindow(MainWindowHandle);
-	return true;
+    return S_OK;
 }
 
 
 
-int WINAPI WinMain(HINSTANCE hInstance,
-				   HINSTANCE hPrevInstance,
-				   PSTR pCmdLine,
-				   int nShowCmd)
-{
-	if (!InitWindowsApp(hInstance, nShowCmd))
-	{
-		::MessageBox(MainWindowHandle, "BOOM", "INIT WINDOW FAIL", MB_OK);
-		return WM_QUIT;
-	}
 
-	return Run();
+//-----------------------------------------------------------------------------
+// Name: Cleanup()
+// Desc: Releases all previously initialized objects
+//-----------------------------------------------------------------------------
+VOID Cleanup()
+{
+    if (g_pd3dDevice != NULL)
+        g_pd3dDevice->Release();
+
+    if (g_pD3D != NULL)
+        g_pD3D->Release();
+}
+
+
+
+
+//-----------------------------------------------------------------------------
+// Name: Render()
+// Desc: Draws the scene
+//-----------------------------------------------------------------------------
+VOID Render()
+{
+    if (NULL == g_pd3dDevice)
+        return;
+
+    // Clear the backbuffer to a blue color
+    g_pd3dDevice->Clear(0, NULL, D3DCLEAR_TARGET, D3DCOLOR_XRGB(0, 0, 255), 1.0f, 0);
+
+    // Begin the scene
+    if (SUCCEEDED(g_pd3dDevice->BeginScene()))
+    {
+        // Rendering of scene objects can happen here
+
+        // End the scene
+        g_pd3dDevice->EndScene();
+    }
+
+    // Present the backbuffer contents to the display
+    g_pd3dDevice->Present(NULL, NULL, NULL, NULL);
+}
+
+
+
+
+//-----------------------------------------------------------------------------
+// Name: MsgProc()
+// Desc: The window's message handler
+//-----------------------------------------------------------------------------
+LRESULT WINAPI MsgProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
+{
+    switch (msg)
+    {
+    case WM_DESTROY:
+        Cleanup();
+        PostQuitMessage(0);
+        return 0;
+
+    case WM_PAINT:
+        Render();
+        ValidateRect(hWnd, NULL);
+        return 0;
+    }
+
+    return DefWindowProc(hWnd, msg, wParam, lParam);
+}
+
+
+
+
+//-----------------------------------------------------------------------------
+// Name: wWinMain()
+// Desc: The application's entry point
+//-----------------------------------------------------------------------------
+INT WINAPI wWinMain(HINSTANCE hInst, HINSTANCE, LPWSTR, INT)
+{
+    UNREFERENCED_PARAMETER(hInst);
+
+    // Register the window class
+    WNDCLASSEX wc =
+    {
+        sizeof(WNDCLASSEX), CS_CLASSDC, MsgProc, 0L, 0L,
+        GetModuleHandle(NULL), NULL, NULL, NULL, NULL,
+        L"D3D", NULL
+    };
+    RegisterClassEx(&wc);
+
+    // Create the application's window
+    HWND hWnd = CreateWindow(L"D3D", L"DirectX9 Rendering",
+        WS_OVERLAPPEDWINDOW, 100, 100, 300, 300,
+        NULL, NULL, wc.hInstance, NULL);
+
+    // Initialize Direct3D
+    if (SUCCEEDED(InitD3D(hWnd)))
+    {
+        // Show the window
+        ShowWindow(hWnd, SW_SHOWDEFAULT);
+        UpdateWindow(hWnd);
+
+        // Enter the message loop
+        MSG msg;
+        while (GetMessage(&msg, NULL, 0, 0))
+        {
+            TranslateMessage(&msg);
+            DispatchMessage(&msg);
+        }
+    }
+
+    UnregisterClass(L"D3D", wc.hInstance);
+    return 0;
 }

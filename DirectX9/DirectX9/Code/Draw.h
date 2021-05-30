@@ -5,6 +5,7 @@
 #include <d3d9.h>
 #include <d3dx9.h>
 
+
 namespace DrawTriangle
 {
 	HRESULT Initialize(LPDIRECT3DDEVICE9 device);

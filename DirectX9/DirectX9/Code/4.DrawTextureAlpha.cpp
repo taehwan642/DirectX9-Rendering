@@ -52,13 +52,13 @@ namespace DrawTextureAlpha
 		vb->Unlock();
 
 		if (FAILED(D3DXCreateTextureFromFile(device,
-			"Source/earth.bmp", // 파일명
+			L"Source/earth.bmp", // 파일명
 			&texture))) // 텍스쳐 오브젝트
 		{
 			return E_FAIL;
 		}
 		if (FAILED(D3DXCreateTextureFromFile(device,
-			"Source/shadow.png", // 파일명
+			L"Source/shadow.png", // 파일명
 			&texture2))) // 텍스쳐 오브젝트
 		{
 			return E_FAIL;
