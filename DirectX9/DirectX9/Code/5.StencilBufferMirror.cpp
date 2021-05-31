@@ -154,9 +154,9 @@ namespace StencilBufferMirror
 		// Load Textures, set filters.
 		//
 
-		D3DXCreateTextureFromFile(device, "Source/checker.jpg", &FloorTex);
-		D3DXCreateTextureFromFile(device, "Source/brick0.jpg", &WallTex);
-		D3DXCreateTextureFromFile(device, "Source/ice.bmp", &MirrorTex);
+		D3DXCreateTextureFromFile(device, L"Source/checker.jpg", &FloorTex);
+		D3DXCreateTextureFromFile(device, L"Source/brick0.jpg", &WallTex);
+		D3DXCreateTextureFromFile(device, L"Source/ice.bmp", &MirrorTex);
 
 		device->SetSamplerState(0, D3DSAMP_MAGFILTER, D3DTEXF_LINEAR);
 		device->SetSamplerState(0, D3DSAMP_MINFILTER, D3DTEXF_LINEAR);
@@ -196,7 +196,7 @@ namespace StencilBufferMirror
 		D3DXMatrixPerspectiveFovLH(
 			&proj,
 			D3DX_PI / 4.0f, // 45 - degree
-			(float)640 / (float)480,
+			(float)1280 / (float)720,
 			1.0f,
 			1000.0f);
 		device->SetTransform(D3DTS_PROJECTION, &proj);
