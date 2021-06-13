@@ -98,6 +98,9 @@
     <ClCompile Include="Code\6.StencilBufferShadow.cpp">
       <Filter>Code</Filter>
     </ClCompile>
+    <ClCompile Include="Code\7.XFile.cpp">
+      <Filter>Code</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CLInclude Include="resource.h">

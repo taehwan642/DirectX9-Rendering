@@ -55,4 +55,12 @@ namespace StencilBufferShadow
 	void Close();
 }
 
+namespace XFile
+{
+	HRESULT Initialize(LPDIRECT3DDEVICE9 device);
+	void SetMatrices(LPDIRECT3DDEVICE9 device);
+	void Update(LPDIRECT3DDEVICE9 device);
+	void Close();
+}
+
 #endif __draw_h__

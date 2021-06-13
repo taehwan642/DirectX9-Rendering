@@ -394,7 +394,7 @@ namespace StencilBufferShadow
 
         static float angle = (3.0f * D3DX_PI) / 2.0f;
 
-        if (::GetAsyncKeyState('z') & 0x8000f)
+        if (::GetAsyncKeyState('Z') & 0x8000f)
             angle -= 0.5f * timeDelta;
 
         if (::GetAsyncKeyState('X') & 0x8000f)
