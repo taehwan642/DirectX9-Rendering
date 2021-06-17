@@ -81,6 +81,7 @@ namespace XFile
 	void Close()
 	{
 		texture->Release();
+		subsetBuffer->Release();
 		mesh->Release();
 	}
 }

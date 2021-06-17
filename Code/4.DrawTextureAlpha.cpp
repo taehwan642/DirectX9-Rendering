@@ -152,6 +152,7 @@ namespace DrawTextureAlpha
 	void Close()
 	{
 		SAFE_RELEASE(texture);
+		SAFE_RELEASE(texture2);
 		SAFE_RELEASE(vb);
 	}
 }

@@ -70,4 +70,11 @@ namespace Shader
 	void Close();
 }
 
+namespace LambertianReflectance
+{
+	HRESULT Initialize(LPDIRECT3DDEVICE9 device);
+	void Update(LPDIRECT3DDEVICE9 device);
+	void Close();
+}
+
 #endif __draw_h__

@@ -286,7 +286,7 @@ namespace StencilBufferMirror
 	void DrawMirror(LPDIRECT3DDEVICE9 device)
 	{
 		device->SetRenderState(D3DRS_STENCILENABLE, true);
-		device->SetRenderState(D3DRS_STENCILFUNC, D3DCMP_NEVER);
+		device->SetRenderState(D3DRS_STENCILFUNC, D3DCMP_ALWAYS);
 		device->SetRenderState(D3DRS_STENCILREF, 0x1);
 		device->SetRenderState(D3DRS_STENCILMASK, 0xffffffff);
 		device->SetRenderState(D3DRS_STENCILWRITEMASK, 0xffffffff);

@@ -103,6 +103,9 @@
     <ClCompile Include="Code\8.Shader.cpp">
       <Filter>Code</Filter>
     </ClCompile>
+    <ClCompile Include="Code\9.LambertianReflectance.cpp">
+      <Filter>Code</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CLInclude Include="resource.h">

@@ -258,6 +258,12 @@
       <Command>
       </Command>
     </PostBuildEvent>
+    <FxCompile>
+      <ShaderType>Effect</ShaderType>
+    </FxCompile>
+    <FxCompile>
+      <ShaderModel>2.0</ShaderModel>
+    </FxCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|X64'">
     <ClCompile>
@@ -401,6 +407,7 @@
     <ClCompile Include="Code\6.StencilBufferShadow.cpp" />
     <ClCompile Include="Code\7.XFile.cpp" />
     <ClCompile Include="Code\8.Shader.cpp" />
+    <ClCompile Include="Code\9.LambertianReflectance.cpp" />
     <ClCompile Include="DXUT\Core\DXUT.cpp">
       <PrecompiledHeader>Create</PrecompiledHeader>
     </ClCompile>
