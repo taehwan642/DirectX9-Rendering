@@ -122,5 +122,8 @@
     <FxCompile Include="Shader\Shader.fx">
       <Filter>Shader</Filter>
     </FxCompile>
+    <FxCompile Include="Shader\LambertianReflectance.fx">
+      <Filter>Shader</Filter>
+    </FxCompile>
   </ItemGroup>
 </Project>

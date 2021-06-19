@@ -430,6 +430,7 @@
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <FxCompile Include="Shader\LambertianReflectance.fx" />
     <FxCompile Include="Shader\Shader.fx" />
   </ItemGroup>
   <ItemGroup>
