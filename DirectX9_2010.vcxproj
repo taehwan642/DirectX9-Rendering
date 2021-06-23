@@ -408,6 +408,7 @@
     <ClCompile Include="Code\7.XFile.cpp" />
     <ClCompile Include="Code\8.Shader.cpp" />
     <ClCompile Include="Code\9.LambertianReflectance.cpp" />
+    <ClCompile Include="Code\10.LambertianReflectance2.cpp" />
     <ClCompile Include="DXUT\Core\DXUT.cpp">
       <PrecompiledHeader>Create</PrecompiledHeader>
     </ClCompile>
@@ -430,6 +431,7 @@
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <FxCompile Include="Shader\LambertianReflectance2.fx" />
     <FxCompile Include="Shader\LambertianReflectance.fx" />
     <FxCompile Include="Shader\Shader.fx" />
   </ItemGroup>
