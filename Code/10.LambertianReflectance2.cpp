@@ -4,6 +4,9 @@
 
 namespace LambertianReflectance2
 {
+	/*조명 계산을 로컬 좌표계에서*/
+#define Optimazation FALSE
+
 	LPD3DXEFFECT effect;
 	D3DXHANDLE technique;
 	D3DXHANDLE mWVP;
@@ -47,6 +50,8 @@ namespace LambertianReflectance2
 			return E_FAIL;
 
 		LPD3DXBUFFER error;
+
+#if Optimazation == FALSE
 		if (FAILED(D3DXCreateEffectFromFile(
 			device, // 디바이스
 			L"Shader/LambertianReflectance2.fx", // 이펙트 파일 명 포인터
@@ -65,6 +70,9 @@ namespace LambertianReflectance2
 			mWVP = effect->GetParameterByName(NULL, "mWVP");
 			lightDir = effect->GetParameterByName(NULL, "vLightDir");
 		}
+#elif Optimazation == TRUE
+		finalpath;
+#endif
 
 		if (error != nullptr) error->Release();
 
@@ -134,10 +142,13 @@ namespace LambertianReflectance2
 
 		D3DXVECTOR4 light_pos{ -0.577f, -0.577f, -0.577f, 0 };
 		D3DXMatrixInverse(&m, NULL, &mWorld);
+#if Optimazation == FALSE
 		D3DXVECTOR4 v;
 		D3DXVec4Transform(&v, &light_pos, &m);
 		D3DXVec3Normalize(reinterpret_cast<D3DXVECTOR3*>(&v), reinterpret_cast<D3DXVECTOR3*>(&v));
 		effect->SetVector(lightDir, &light_pos);
+#elif Optimazation == TRUE
+#endif
 
 		device->SetFVF(D3DFVF_XYZ | D3DFVF_NORMAL);
 
@@ -151,6 +162,8 @@ namespace LambertianReflectance2
 		for (int i = 0; i < numMaterial; ++i)
 		{
 			D3DXVECTOR4 v;
+			
+#if Optimazation == FALSE
 			v.x = subset[i].MatD3D.Diffuse.r;
 			v.y = subset[i].MatD3D.Diffuse.g;
 			v.z = subset[i].MatD3D.Diffuse.b;
@@ -158,6 +171,8 @@ namespace LambertianReflectance2
 
 			effect->SetVector((D3DXHANDLE)"k_d", &v);
 			effect->SetVector((D3DXHANDLE)"k_a", &v);
+#elif Optimazation == TRUE
+#endif
 			ufo->DrawSubset(i);
 		}
 

@@ -29,7 +29,7 @@ VS_OUTPUT VS
 
 	// 정점 색
 	float3 L = -vLightDir; // 로컬 좌표에서의 광원 벡터
-	float3 N = Normal; // 월드 좌표계에서의 법선
+	float3 N = Normal; // 로컬 좌표계에서의 법선
 
 	// 월드에서 법선을 계산하는 것보다, 좌표 변환과 정규화가 필요없기 때문에 이 방식이 더 빠르다
 

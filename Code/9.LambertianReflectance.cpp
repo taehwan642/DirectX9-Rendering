@@ -4,6 +4,8 @@
 
 namespace LambertianReflectance
 {
+	/*조명 계산을 월드 좌표계에서*/
+
 	LPD3DXEFFECT effect;
 	D3DXHANDLE technique;
 	D3DXHANDLE mWVP;

@@ -433,6 +433,7 @@
   <ItemGroup>
     <FxCompile Include="Shader\LambertianReflectance2.fx" />
     <FxCompile Include="Shader\LambertianReflectance.fx" />
+    <FxCompile Include="Shader\LambertianReflectanceOPTIM.fx" />
     <FxCompile Include="Shader\Shader.fx" />
   </ItemGroup>
   <ItemGroup>
