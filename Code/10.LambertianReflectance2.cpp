@@ -5,7 +5,7 @@
 namespace LambertianReflectance2
 {
 	/*조명 계산을 로컬 좌표계에서*/
-#define Optimazation FALSE
+#define Optimazation TRUE
 
 	LPD3DXEFFECT effect;
 	D3DXHANDLE technique;
@@ -71,7 +71,24 @@ namespace LambertianReflectance2
 			lightDir = effect->GetParameterByName(NULL, "vLightDir");
 		}
 #elif Optimazation == TRUE
-		finalpath;
+		if (FAILED(D3DXCreateEffectFromFile(
+			device, // 디바이스
+			L"Shader/LambertianReflectanceOPTIM.fx", // 이펙트 파일 명 포인터
+			NULL, // 전처리기 포인터
+			NULL, // 옵션 인터페이스 포인터
+			0, // D3DXSHADER 식별 컴파일 옵션
+			NULL, // 공유 인수로 사용하는 ID3DXEffectPool 오브젝트 포인터
+			&effect, // 컴파일된 이펙트 파일이 저장될 버퍼
+			&error))) // 컴파일 에러가 저장될 버퍼
+		{
+			MessageBox(NULL, (LPCTSTR)error->GetBufferPointer(), L"ERROR", MB_OK);
+		}
+		else
+		{
+			technique = effect->GetTechniqueByName("TShader");
+			mWVP = effect->GetParameterByName(NULL, "mWVP");
+			lightDir = effect->GetParameterByName(NULL, "vLightDir");
+		}
 #endif
 
 		if (error != nullptr) error->Release();
@@ -148,6 +165,11 @@ namespace LambertianReflectance2
 		D3DXVec3Normalize(reinterpret_cast<D3DXVECTOR3*>(&v), reinterpret_cast<D3DXVECTOR3*>(&v));
 		effect->SetVector(lightDir, &light_pos);
 #elif Optimazation == TRUE
+		D3DXVECTOR4 v;
+		D3DXVec4Transform(&v, &light_pos, &m);
+		D3DXVec3Normalize(reinterpret_cast<D3DXVECTOR3*>(&v), reinterpret_cast<D3DXVECTOR3*>(&v));
+		v.w = -0.3f;
+		effect->SetVector(lightDir, &light_pos);
 #endif
 
 		device->SetFVF(D3DFVF_XYZ | D3DFVF_NORMAL);
@@ -172,6 +194,11 @@ namespace LambertianReflectance2
 			effect->SetVector((D3DXHANDLE)"k_d", &v);
 			effect->SetVector((D3DXHANDLE)"k_a", &v);
 #elif Optimazation == TRUE
+			v.x = subset[i].MatD3D.Diffuse.r / 1.3f;
+			v.y = subset[i].MatD3D.Diffuse.g / 1.3f;
+			v.z = subset[i].MatD3D.Diffuse.b / 1.3f;
+			v.w = subset[i].MatD3D.Diffuse.a / 1.3f;
+			effect->SetVector((D3DXHANDLE)"vColor", &v);
 #endif
 			ufo->DrawSubset(i);
 		}

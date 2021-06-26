@@ -2,7 +2,7 @@
 #include "resource.h"
 #include "Draw.h"
 
-#define CurrentNamespace LambertianReflectance2
+#define CurrentNamespace Phong
 
 BOOL IsDepthFormatOk(D3DFORMAT DepthFormat,
     D3DFORMAT AdapterFormat,

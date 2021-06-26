@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -400,6 +400,7 @@
     <ClInclude Include="DXUT\Core\DXUTenum.h" />
     <ClInclude Include="DXUT\Core\DXUTmisc.h" />
     <ClCompile Include="Code\1.DrawTriangle.cpp" />
+    <ClCompile Include="Code\12.Phong.cpp" />
     <ClCompile Include="Code\2.DrawTexture.cpp" />
     <ClCompile Include="Code\3.DrawTextureWithStage.cpp" />
     <ClCompile Include="Code\4.DrawTextureAlpha.cpp" />
@@ -409,6 +410,7 @@
     <ClCompile Include="Code\8.Shader.cpp" />
     <ClCompile Include="Code\9.LambertianReflectance.cpp" />
     <ClCompile Include="Code\10.LambertianReflectance2.cpp" />
+    <ClCompile Include="Code\11.ProgressiveMesh.cpp" />
     <ClCompile Include="DXUT\Core\DXUT.cpp">
       <PrecompiledHeader>Create</PrecompiledHeader>
     </ClCompile>
@@ -434,6 +436,7 @@
     <FxCompile Include="Shader\LambertianReflectance2.fx" />
     <FxCompile Include="Shader\LambertianReflectance.fx" />
     <FxCompile Include="Shader\LambertianReflectanceOPTIM.fx" />
+    <FxCompile Include="Shader\Phong.fx" />
     <FxCompile Include="Shader\Shader.fx" />
   </ItemGroup>
   <ItemGroup>

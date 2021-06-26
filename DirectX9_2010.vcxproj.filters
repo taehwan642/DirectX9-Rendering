@@ -109,6 +109,12 @@
     <ClCompile Include="Code\10.LambertianReflectance2.cpp">
       <Filter>Code</Filter>
     </ClCompile>
+    <ClCompile Include="Code\11.ProgressiveMesh.cpp">
+      <Filter>Code</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\12.Phong.cpp">
+      <Filter>Code</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CLInclude Include="resource.h">
@@ -132,6 +138,9 @@
       <Filter>Shader</Filter>
     </FxCompile>
     <FxCompile Include="Shader\LambertianReflectanceOPTIM.fx">
+      <Filter>Shader</Filter>
+    </FxCompile>
+    <FxCompile Include="Shader\Phong.fx">
       <Filter>Shader</Filter>
     </FxCompile>
   </ItemGroup>

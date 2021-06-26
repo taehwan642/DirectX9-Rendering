@@ -18,7 +18,19 @@ namespace XFile
 		::lstrcpy(finalpath, filepath.c_str());
 		::lstrcat(finalpath, filename.c_str());
 
-		if (FAILED(D3DXLoadMeshFromX(finalpath, D3DXMESH_MANAGED, device, nullptr, &subsetBuffer, nullptr, nullptr, &mesh)))
+		if (FAILED(D3DXLoadMeshFromX(
+			finalpath, // 읽어들이고자 하는 XFile의 파일명
+			D3DXMESH_MANAGED, // 메시를 만드는 데 이용될 하나 이상의 생성 플래그
+			// 32BIT == 메시는 32비트 인덱스를 이용하게 된다
+			// MANAGED == 메시는 관리 메모리 풀 내에 보관된다
+			// WRITEONLY == 메시 데이터는 쓰기만 허용된다
+			// DYNAMIC == 메시 버퍼는 동적으로 만들어진다
+			device, // 메시와 연계될 장치
+			nullptr, // 메시 접근 정보를 위한 DWORD 배열을 포함하는 ID3DXBuffer를 리턴
+			&subsetBuffer, // 매시 재질 정보를 위한 D3DXMATERIAL 구조체 배열을 포함하는 ID3DXBuffer를 리턴
+			nullptr, // D3DXEFFECTINSTANCE 구조체 배열을 포함하는 ID3DXBuffer를 리턴
+			nullptr, // 메시의 재질 수를 리턴 (subsetBuffer로 받은 D3DXMATERIAL 배열 내 요소의 수)
+			&mesh))) // XFile 기하정보로 채워진 ID3DXMesh 객체를 리턴
 			return E_FAIL;
 		
 		subset = static_cast<LPD3DXMATERIAL>(subsetBuffer->GetBufferPointer());
