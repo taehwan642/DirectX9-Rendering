@@ -5,7 +5,11 @@
 namespace LambertianReflectance2
 {
 	/*조명 계산을 로컬 좌표계에서*/
-#define Optimazation TRUE
+#define Optimazation FALSE
+
+	// 왜 조명 계산을 로컬 좌표에서 하면 빛이 물체에게
+	// 붙은 것 같은 효과가 나올까? 로컬이라 그런가?
+	// 해결 방법은?
 
 	LPD3DXEFFECT effect;
 	D3DXHANDLE technique;
