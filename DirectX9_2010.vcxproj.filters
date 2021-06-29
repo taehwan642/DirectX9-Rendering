@@ -115,6 +115,9 @@
     <ClCompile Include="Code\12.Phong.cpp">
       <Filter>Code</Filter>
     </ClCompile>
+    <ClCompile Include="Code\13.Blinn-Phong.cpp">
+      <Filter>Code</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CLInclude Include="resource.h">
@@ -141,6 +144,9 @@
       <Filter>Shader</Filter>
     </FxCompile>
     <FxCompile Include="Shader\Phong.fx">
+      <Filter>Shader</Filter>
+    </FxCompile>
+    <FxCompile Include="Shader\Blinn-Phong.fx">
       <Filter>Shader</Filter>
     </FxCompile>
   </ItemGroup>

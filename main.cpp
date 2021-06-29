@@ -2,7 +2,7 @@
 #include "resource.h"
 #include "Draw.h"
 
-#define CurrentNamespace Phong
+#define CurrentNamespace BlinnPhong
 
 BOOL IsDepthFormatOk(D3DFORMAT DepthFormat,
     D3DFORMAT AdapterFormat,

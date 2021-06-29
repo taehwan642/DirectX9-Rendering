@@ -411,6 +411,7 @@
     <ClCompile Include="Code\9.LambertianReflectance.cpp" />
     <ClCompile Include="Code\10.LambertianReflectance2.cpp" />
     <ClCompile Include="Code\11.ProgressiveMesh.cpp" />
+    <ClCompile Include="Code\13.Blinn-Phong.cpp" />
     <ClCompile Include="DXUT\Core\DXUT.cpp">
       <PrecompiledHeader>Create</PrecompiledHeader>
     </ClCompile>
@@ -433,6 +434,7 @@
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <FxCompile Include="Shader\Blinn-Phong.fx" />
     <FxCompile Include="Shader\LambertianReflectance2.fx" />
     <FxCompile Include="Shader\LambertianReflectance.fx" />
     <FxCompile Include="Shader\LambertianReflectanceOPTIM.fx" />
