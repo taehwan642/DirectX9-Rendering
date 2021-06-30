@@ -22,14 +22,14 @@ VS_OUTPUT VS
 	// ÁÂÇ¥ º¯È¯ (·ÎÄÃ -> ¿ùµå)
 	Out.Pos = mul(Pos, mWVP);
 
-	float4 L = -vLightDir;
-	float amb = -L.w; // È¯°æ±¤ ¹à±â
+	float amb = -vLightDir.w; // È¯°æ±¤ ¹à±â
 	float3 N = Normal.xyz;
+	float4 L = -vLightDir;
 	float3 eye = normalize(vEyePos - Pos.xyz);
-	float3 R = -eye + 2.0f * dot(N, eye) * N; // ¹Ý»ç º¤ÅÍ
+	float3 H = normalize(L + eye);
 
 	Out.Color = vColor * max(amb, dot(Normal, -vLightDir))
-		+ pow(max(0, dot(L, R)), 10);
+		+ pow(max(0, dot(N, H)), 10);
 
 	return Out;
 }
