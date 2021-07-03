@@ -76,6 +76,9 @@
     <ClCompile Include="DXUT\Optional\SDKmisc.cpp">
       <Filter>DXUT</Filter>
     </ClCompile>
+    <None Include="Code\15.Blur-Filter.cpp">
+      <Filter>Code</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
@@ -116,6 +119,9 @@
       <Filter>Code</Filter>
     </ClCompile>
     <ClCompile Include="Code\13.Blinn-Phong.cpp">
+      <Filter>Code</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\14.CircleShadow.cpp">
       <Filter>Code</Filter>
     </ClCompile>
   </ItemGroup>

@@ -394,6 +394,7 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <None Include="Code\15.Blur-Filter.cpp" />
     <None Include="DXUT\Optional\directx.ico" />
     <ClInclude Include="Code\Draw.h" />
     <ClInclude Include="DXUT\Core\DXUT.h" />
@@ -401,6 +402,7 @@
     <ClInclude Include="DXUT\Core\DXUTmisc.h" />
     <ClCompile Include="Code\1.DrawTriangle.cpp" />
     <ClCompile Include="Code\12.Phong.cpp" />
+    <ClCompile Include="Code\14.CircleShadow.cpp" />
     <ClCompile Include="Code\2.DrawTexture.cpp" />
     <ClCompile Include="Code\3.DrawTextureWithStage.cpp" />
     <ClCompile Include="Code\4.DrawTextureAlpha.cpp" />
