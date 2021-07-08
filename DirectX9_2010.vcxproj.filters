@@ -76,7 +76,7 @@
     <ClCompile Include="DXUT\Optional\SDKmisc.cpp">
       <Filter>DXUT</Filter>
     </ClCompile>
-    <None Include="Code\15.Blur-Filter.cpp">
+    <None Include="Code\15.16BoxFilter.cpp">
       <Filter>Code</Filter>
     </None>
   </ItemGroup>
@@ -153,6 +153,9 @@
       <Filter>Shader</Filter>
     </FxCompile>
     <FxCompile Include="Shader\Blinn-Phong.fx">
+      <Filter>Shader</Filter>
+    </FxCompile>
+    <FxCompile Include="Shader\16BoxFilter.fx">
       <Filter>Shader</Filter>
     </FxCompile>
   </ItemGroup>

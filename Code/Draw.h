@@ -117,4 +117,22 @@ namespace BlinnPhong
 	void Close();
 }
 
+namespace CircleShadow
+{
+	HRESULT Initialize(LPDIRECT3DDEVICE9 device);
+	void DrawBackGround(LPDIRECT3DDEVICE9 device);
+	void DrawUFO(LPDIRECT3DDEVICE9 device);
+	void Update(LPDIRECT3DDEVICE9 device);
+	void Close();
+}
+
+namespace BoxFilter
+{
+	HRESULT Initialize(LPDIRECT3DDEVICE9 device);
+	void DrawBackGround(LPDIRECT3DDEVICE9 device);
+	void DrawUFO(LPDIRECT3DDEVICE9 device);
+	void Update(LPDIRECT3DDEVICE9 device);
+	void Close();
+}
+
 #endif __draw_h__
